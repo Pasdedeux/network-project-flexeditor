@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" creationComplete="panel1_creationCompleteHandler(event)"
+		 title="人物技能列表">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.XMLListCollection;
+			import mx.events.FlexEvent;
+			
+			import spark.events.IndexChangeEvent;
+			
+			[Bindable]
+			private var _skillList:XMLListCollection;
+			
+			protected function panel1_creationCompleteHandler(event:FlexEvent):void
+			{
+				this.addEventListener(MouseEvent.MOUSE_DOWN , onMouseDown ,false, 0 , true);
+				
+			}
+			protected function onMouseDown(event:MouseEvent):void
+			{
+				this.addEventListener(MouseEvent.MOUSE_UP , onMouseUp);
+				this.startDrag(false,new Rectangle(this.x,0,0,500));
+			}
+			
+			protected function onMouseUp(event:MouseEvent):void
+			{
+				this.stopDrag();
+				this.removeEventListener(MouseEvent.MOUSE_UP , onMouseUp);
+			}
+			
+			protected function list1_creationCompleteHandler(event:FlexEvent):void
+			{
+				// TODO Auto-generated method stub
+				
+			}
+			
+			protected function list1_changeHandler(event:IndexChangeEvent):void
+			{
+				// TODO Auto-generated method stub
+				
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<s:VGroup left="10" right="10" top="10" bottom="10" horizontalAlign="center">
+		<s:List dataProvider="{_skillList}" allowMultipleSelection="false" creationComplete="list1_creationCompleteHandler(event)"
+				change="list1_changeHandler(event)"/>
+	</s:VGroup>
+</s:Panel>

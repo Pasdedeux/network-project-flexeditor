@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/mx" creationComplete="panel1_creationCompleteHandler(event)"
+		title="特效资源">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.XMLListCollection;
+			import mx.events.FlexEvent;
+			import mx.managers.PopUpManager;
+			
+			import spark.events.IndexChangeEvent;
+			
+			[Bindable]
+			private var _skillList:XMLListCollection;
+			
+			protected function panel1_creationCompleteHandler(event:FlexEvent):void
+			{
+				//添加自定义事件传递修改XML后的值
+			}
+			
+			protected function list1_changeHandler(event:IndexChangeEvent):void
+			{
+				trace("<--CCSkillListPanel--list1_changeHandler-->");
+			}
+			
+			public function skillList(value:XML):void
+			{
+				_skillList = new XMLListCollection(value.skill.base.skillName);
+			}
+			
+			protected function addItem_clickHandler(event:MouseEvent):void
+			{
+				var addSpPanel:CCAddSpAssets = new CCAddSpAssets();
+				PopUpManager.addPopUp( addSpPanel , this , true );
+				addSpPanel.x = parentApplication.width - addSpPanel.width>>1;
+				addSpPanel.y = parentApplication.height - addSpPanel.height>>1;
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<s:VGroup left="10" right="10" top="10" bottom="10">
+		<s:List dataProvider="{_skillList}" allowMultipleSelection="false" width="160" maxHeight="450" labelField="@name"
+				change="list1_changeHandler(event)"/>
+		<s:HGroup >
+			<s:Button label="添加" width="50" click="addItem_clickHandler(event)"/>
+			<s:Button label="编辑" width="50"/>
+			<s:Button label="移除" width="50"/>
+		</s:HGroup>
+	</s:VGroup>
+</s:Panel>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					   xmlns:s="library://ns.adobe.com/flex/spark" 
+					   xmlns:mx="library://ns.adobe.com/flex/mx" 
+					   xmlns:ns="spEditor_components.*" titleIcon="@Embed('assets/xigu_48x48.png')" minWidth="1150" minHeight="680"
+					   title="{_title}" 
+					   creationComplete="windowedapplication1_creationCompleteHandler(event)" 
+					   windowResize="windowedapplication1_windowResizeHandler(event)"
+					   currentState="spEditor" xmlns:ui="framework.view.ui.*" backgroundColor="0x999999" xmlns:ns1="spBinder_components.*" xmlns:local="*">
+	<s:states>
+		<s:State name="spEditor"/>
+		<!--<s:State name="skillLink"/>-->
+		<s:State name="spBinder"/>
+	</s:states>
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		.myStyle
+		{
+			chromeColor:Black;
+			color:White;
+		}
+	</fx:Style>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import mx.events.FlexNativeWindowBoundsEvent;
+			import mx.managers.PopUpManager;
+			
+			import assets.Document_NameList;
+			
+			import framework.ApplicationFacade;
+			
+			import spBinder_components.BBRoleFormPanel;
+			import spBinder_components.BBRoleSkillListPanel;
+			
+			import spEditor_components.CCSkillAssetsListPanel;
+			
+			private const common_offsetY:uint = 24;
+			private const bbroleistPanel_intY:uint = 500;
+			[Bindable]
+			public var _title:String;
+			
+			private var ccskill:CCSkillAssetsListPanel;
+			private var bbroleFormPanel:BBRoleFormPanel;
+			private var bbroleSkillList:BBRoleSkillListPanel;
+			
+			/* 程序初始化*/
+			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
+			{
+				_title = Document_NameList.APP_TITLE_EDIT;
+				openCCFloatPanel();
+				ApplicationFacade.getInstance().startUp(this);
+			} 
+			
+			/*窗体尺寸改变*/
+			protected function windowedapplication1_windowResizeHandler(event:FlexNativeWindowBoundsEvent):void
+			{
+				trace("<--FlexEffectEditor--resize-->");
+			}
+			
+			protected function save_clickHandler(event:MouseEvent):void
+			{
+				
+			}
+			
+			protected function output_clickHandler(event:MouseEvent):void
+			{
+				
+			}
+			
+			//============界面浮动面板===========//
+			public function openCCFloatPanel():void
+			{
+				if(ccskill == null)
+				{
+					ccskill =new CCSkillAssetsListPanel();
+					ccskill.x = mainStage.x + mainStage.width+10;
+					ccskill.y = common_offsetY;
+					PopUpManager.addPopUp(ccskill , this , false);
+				}
+			}
+			public function closeCCFloatPanel():void
+			{
+				if(ccskill != null)
+				{
+					PopUpManager.removePopUp(ccskill);
+					ccskill = null;
+				}
+			}
+			
+			public function openBBFloatPanel():void
+			{
+				if(bbroleFormPanel == null)
+				{
+					bbroleFormPanel = new BBRoleFormPanel();
+					PopUpManager.addPopUp(bbroleFormPanel , this , false);
+					bbroleFormPanel.x = mainStage.x +(mainStage.width - bbroleFormPanel.getExplicitOrMeasuredWidth())*.5 + 10 ;
+					bbroleFormPanel.y = common_offsetY + mainStage.height ;
+				}
+				if(bbroleSkillList == null)
+				{
+					bbroleSkillList = new BBRoleSkillListPanel();
+					bbroleSkillList.x = mainStage.x + mainStage.width+10;
+					bbroleSkillList.y = common_offsetY;
+					PopUpManager.addPopUp(bbroleSkillList , this, false);
+				}
+			}
+			public function closeBBFloatPanel():void
+			{
+				if(bbroleFormPanel != null)
+				{
+					PopUpManager.removePopUp(bbroleFormPanel);
+					bbroleFormPanel = null;
+				}
+				if(bbroleSkillList != null)
+				{
+					PopUpManager.removePopUp(bbroleSkillList);
+					bbroleSkillList = null;
+				}
+			}
+			
+			//状态栏调用
+			public function setStatus():void
+			{
+				
+			}
+			
+		]]>
+	</fx:Script>
+	<!--<ns:CCMenuBar id="cmenu"/>-->
+	<s:HGroup>
+		<ns:CCToggleButtonBar id="head" includeInLayout="true"/>
+		<s:Button label="保存" styleName="myStyle" click="save_clickHandler(event)"/>
+		<s:Button label="导出" styleName="myStyle" click="output_clickHandler(event)"/>
+	</s:HGroup>
+	<local:MainStage y="{common_offsetY}" x="{skillList.width+10}" id="mainStage"/>
+	
+	<!-- ===========技能编辑模式============ -->
+	<s:HGroup y="{common_offsetY}" id="body_0" includeIn="spEditor">
+		<ns:CCSkillListPanel id="skillList"/>
+	</s:HGroup>
+	
+	<!-- ===========技能绑定模式============ -->
+	<s:HGroup y="{common_offsetY}" id="body_1" includeIn="spBinder">
+		<ns1:BBRoleListPanel id="roleList"/>
+	</s:HGroup>
+	
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	
+</s:WindowedApplication>

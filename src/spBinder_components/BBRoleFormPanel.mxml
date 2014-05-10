@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				   xmlns:s="library://ns.adobe.com/flex/spark" 
+				   xmlns:mx="library://ns.adobe.com/flex/mx" creationComplete="bordercontainer1_creationCompleteHandler(event)">
+	<s:layout>
+		<s:FormLayout/>
+	</s:layout>
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import mx.events.MenuEvent;
+			
+			protected function bordercontainer1_creationCompleteHandler(event:FlexEvent):void
+			{
+				//this.addEventListener(MouseEvent.MOUSE_DOWN , onMouseDown,false,0,true);
+			}
+			/*private function onMouseDown(event:MouseEvent):void
+			{
+				this.addEventListener(MouseEvent.MOUSE_UP , onMouseUp);
+				this.startDrag();
+			}
+			private function onMouseUp(event:MouseEvent):void
+			{
+				this.stopDrag();
+				this.removeEventListener(MouseEvent.MOUSE_UP , onMouseUp);
+			}*/
+			
+			
+			protected function hslider_changeHandler(event:Event):void
+			{
+				// TODO Auto-generated method stub
+				
+			}
+			
+			protected function popupmenubutton1_itemClickHandler(event:MenuEvent):void
+			{
+				trace("点击'行为'");
+			}
+				protected function popupmenubutton2_itemClickHandler(event:MenuEvent):void
+			{
+				trace("点击'方向'");
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<fx:XMLList id="action">
+			<node label="站立"/>
+			<node label="移动"/>
+			<node label="攻击"/>
+			<node label="死亡"/>
+			<node label="乘骑(站立)"/>
+			<node label="乘骑(移动)"/>
+		</fx:XMLList>
+		<fx:XMLList id="direction">
+			<node label="南"/>
+			<node label="西南"/>
+			<node label="西"/>
+			<node label="西北"/>
+			<node label="北"/>
+			<node label="东北"/>
+			<node label="东"/>
+			<node label="东南"/>
+		</fx:XMLList>
+	</fx:Declarations>
+	
+		<s:HGroup verticalAlign="middle">
+			<mx:PopUpMenuButton id="actionBtn" dataProvider="{action}" labelField="@label" itemClick="popupmenubutton1_itemClickHandler(event)"/>
+			<mx:PopUpMenuButton id="directionBtn" dataProvider="{direction}" labelField="@label" itemClick="popupmenubutton2_itemClickHandler(event)"/>
+			<s:Button label="播放"/>
+			<s:Button label="暂停"/>
+			<s:Label text="播放速度级" chromeColor="0x999999"/>
+			<s:HSlider stepSize="1" liveDragging="true" minimum="1" maximum="5" change="hslider_changeHandler(event)"/>
+		</s:HGroup>
+	
+</s:BorderContainer>

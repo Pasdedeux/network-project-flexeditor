@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:MenuBar xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns:mx="library://ns.adobe.com/flex/mx"	
+			width="100%" 
+			dataProvider="{xmlList}" labelField="@label"
+			creationComplete="menubar1_creationCompleteHandler(event)" >
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			private var xml:XML;
+			[Bindable]
+			private var xmlList:XMLList;
+			
+			/**
+			 * 菜单栏创建完毕回调
+			 * */
+			protected function menubar1_creationCompleteHandler(event:FlexEvent):void
+			{
+				var loader:URLLoader = new URLLoader();
+				loader.addEventListener(Event.COMPLETE , xmlLoaded);
+				loader.load(new URLRequest("built_in_data/menuBarAsset.xml"));
+			}
+			private function xmlLoaded(e:Event):void
+			{
+				var urlloader:URLLoader = e.target as URLLoader;
+				urlloader.removeEventListener(Event.COMPLETE , xmlLoaded);
+				xml = new XML(e.target.data);
+				xmlList = xml.menu as XMLList;
+				xml = null;
+				urlloader = null;
+			}
+		]]>
+	</fx:Script>
+	
+</mx:MenuBar>

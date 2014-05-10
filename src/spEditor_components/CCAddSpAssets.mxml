@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" title="添加特效信息" creationComplete="panel1_creationCompleteHandler(event)" initialize="panel1_initializeHandler(event)">
+	<s:layout>
+		<s:FormLayout/>
+	</s:layout>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.XMLListCollection;
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			import mx.managers.PopUpManager;
+			
+			import spark.events.IndexChangeEvent;
+			
+			import framework.ApplicationFacade;
+			
+			import moduleEvent.InternalConstants;
+			
+			[Bindable]
+			private var _pop_1_XMLCollection:XMLListCollection;
+			[Bindable]
+			private var _pop_2_XMLCollection:XMLListCollection;
+			[Bindable]
+			private var _pop_3_XMLCollection:XMLListCollection;
+			[Bindable]
+			private var _pop_4_XMLCollection:XMLListCollection;
+			[Bindable]
+			private var _pop_5_XMLCollection:XMLListCollection;
+			[Bindable]
+			private var _showClassLinkage:String;
+
+			private var _arr:Array=new Array();
+			private var _dropList:XML;
+			private var _trasparentXMLList_1:XMLList;
+			private var _trasparentXMLList_2:XMLList;
+			
+			private const _labelField:String = "@name";
+			private const _num_withoutDot:uint = 13;
+			private const DROP_LIST_BTN_INTERVAL:uint = 80;
+			
+			protected function panel1_creationCompleteHandler(event:FlexEvent):void
+			{
+				
+			}
+			
+			protected function panel1_initializeHandler(event:FlexEvent):void
+			{
+				var xmlLoader:URLLoader = new URLLoader();
+				xmlLoader.addEventListener(Event.COMPLETE , xmlLoadOver);
+				xmlLoader.load(new URLRequest("spEditor_components/built_in_data/AssetsClassName.xml"));
+			}
+			
+			protected function sound_clickHandler(event:MouseEvent):void
+			{
+				
+			}
+			
+			protected function pop_1_changeHandler(event:IndexChangeEvent):void
+			{
+				backwardInit(1);
+				_arr[0] = pop_1.selectedItem.@type;
+				_trasparentXMLList_1 = _dropList.child("catagory").(@type==pop_1.selectedItem.@type);
+				_pop_2_XMLCollection = new XMLListCollection( _trasparentXMLList_1.children());
+				_arr.splice(1,_arr.length-1);
+				
+				_showClassLinkage = _arr.join(".");
+			}
+			
+			protected function pop_2_changeHandler(event:IndexChangeEvent):void
+			{
+				backwardInit(2);
+				_arr[1] = pop_2.selectedItem.@type;
+				_trasparentXMLList_2 = _trasparentXMLList_1.child("type").(@type==pop_2.selectedItem.@type);
+				_arr.splice(2,_arr.length-2);
+				_pop_3_XMLCollection = new XMLListCollection(_trasparentXMLList_2.child("career").children());
+				
+				_showClassLinkage = _arr.join(".");
+			}
+			
+			protected function pop_3_changeHandler(event:IndexChangeEvent):void
+			{
+				backwardInit(3);
+				_arr[2] = pop_3.selectedItem.@type;
+				_pop_4_XMLCollection  = new XMLListCollection(_trasparentXMLList_2.child("suit").children());
+				_arr.splice(3,_arr.length-3);
+				
+				_showClassLinkage = _arr.join(".");
+			}
+			
+			protected function pop_4_changeHandler(event:IndexChangeEvent):void
+			{
+				backwardInit(4);
+				_arr[3] = pop_4.selectedItem.@type;
+				_pop_5_XMLCollection  = new XMLListCollection(_trasparentXMLList_2.child("action").children());
+				_arr.splice(4,_arr.length-4);
+				
+				_showClassLinkage = _arr.join(".");
+			}
+			
+			protected function pop_5_changeHandler(event:IndexChangeEvent):void
+			{
+				_arr[4] = pop_5.selectedItem.@type;
+				_arr.splice(5,_arr.length-5);
+				
+				_showClassLinkage = _arr.join(".");
+			}
+			
+			protected function confirm_clickHandler(event:MouseEvent):void
+			{
+				if(_showClassLinkage != null && _showClassLinkage.length==_num_withoutDot)
+				{
+					ApplicationFacade.getInstance().sendNotification(InternalConstants.CREATE_SKILL_XML_ITEM , {prefix:_showClassLinkage , totalFrame:pop_5.selectedItem.@totalFrame });
+					cancel_clickHandler(null);
+				}else //if(pop_1.selectedIndex = -1 || pop_2.selectedIndex = -1 || pop_3.selectedIndex = -1 || pop_4.selectedIndex = -1 || pop_5.selectedIndex = -1 || )
+				{
+					Alert.show("ClassLinkage is null","Warning",Alert.OK,this);
+				}
+			}
+			
+			protected function cancel_clickHandler(event:MouseEvent):void
+			{
+				clearAll();
+				PopUpManager.removePopUp(this);
+				delete this;
+			}
+			
+			private function xmlLoadOver(event:Event):void
+			{
+				var url:URLLoader = event.target as URLLoader;
+				url.removeEventListener(Event.COMPLETE , xmlLoadOver);
+				_dropList = new XML(event.target.data);
+				_pop_1_XMLCollection = new XMLListCollection( _dropList.child('catagory') );
+				url = null;
+			}
+			
+			private function clearAll():void
+			{
+				 _pop_1_XMLCollection = null;
+				_pop_2_XMLCollection = null;
+				_pop_3_XMLCollection = null;
+				_pop_4_XMLCollection = null;
+				 _pop_5_XMLCollection = null;
+				
+				 _arr = null;
+				_dropList = null;
+				_trasparentXMLList_1 = null;
+				_trasparentXMLList_2 = null;
+				_showClassLinkage = null;
+			}
+			
+			private function backwardInit(value:uint):void
+			{
+				switch(value)
+				{
+					case 1:
+						_pop_2_XMLCollection = null;
+						_pop_3_XMLCollection = null;
+						_pop_4_XMLCollection = null;
+						_pop_5_XMLCollection = null;
+						break;
+					case 2:
+						_pop_3_XMLCollection = null;
+						_pop_4_XMLCollection = null;
+						_pop_5_XMLCollection = null;
+						break;
+					case 3:
+						_pop_4_XMLCollection = null;
+						_pop_5_XMLCollection = null;
+						break;
+					case 4:
+						_pop_5_XMLCollection = null;
+						break;
+				}
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<s:Form>
+		<s:HGroup>
+			<s:FormItem label="技能名称">
+				<s:TextInput id="skill_name" width="80"/>
+			</s:FormItem>
+			<s:FormItem label="技能ID">
+				<s:TextInput id="skill_id" width="80"/>
+			</s:FormItem>
+			<s:FormItem label="音效">
+				<s:TextInput id="skill_sound" widthInChars="10"  editable="false" text="来自于'soundList'"/>
+			</s:FormItem>
+			<s:FormItem>
+				<s:Button click="sound_clickHandler(event)" label="打开"/>
+			</s:FormItem>
+		</s:HGroup>
+		
+		<s:HGroup>
+			<s:Label text="资源类链接"/>
+			<s:DropDownList id="pop_1" width="{DROP_LIST_BTN_INTERVAL}" prompt="大类" change="pop_1_changeHandler(event)" labelField="{_labelField}" dataProvider="{_pop_1_XMLCollection}"/>
+			<s:DropDownList id="pop_2" width="{DROP_LIST_BTN_INTERVAL}" prompt="类别" change="pop_2_changeHandler(event)" labelField="{_labelField}" dataProvider="{_pop_2_XMLCollection}"/>
+			<s:DropDownList id="pop_3" width="{DROP_LIST_BTN_INTERVAL}" prompt="职业" change="pop_3_changeHandler(event)" labelField="{_labelField}" dataProvider="{_pop_3_XMLCollection}"/>
+			<s:DropDownList id="pop_4" width="{DROP_LIST_BTN_INTERVAL}" prompt="套装" change="pop_4_changeHandler(event)" labelField="{_labelField}" dataProvider="{_pop_4_XMLCollection}"/>
+			<s:DropDownList id="pop_5" width="{DROP_LIST_BTN_INTERVAL}" prompt="行为" change="pop_5_changeHandler(event)" labelField="{_labelField}" dataProvider="{_pop_5_XMLCollection}"/>
+			<s:TextInput id="pop_result" width="100" editable="false" text="{_showClassLinkage}"/>
+		</s:HGroup>
+		
+		<s:HGroup width="100%" horizontalAlign="center" verticalAlign="middle">
+			<s:Button label="确定" click="confirm_clickHandler(event)"/>
+			<s:Button label="取消" click="cancel_clickHandler(event)"/>
+		</s:HGroup>
+	</s:Form>
+</s:Panel>

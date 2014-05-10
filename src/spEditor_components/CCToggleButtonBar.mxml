@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ButtonBar xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			 xmlns:s="library://ns.adobe.com/flex/spark" 
+			 xmlns:mx="library://ns.adobe.com/flex/mx" 
+			 width="100%"
+			 change="buttonbar1_changeHandler(event)" requireSelection="true">
+	<s:layout>
+		<s:HorizontalLayout/>
+	</s:layout>
+	<s:dataProvider>
+		<s:ArrayCollection source="[ '特效编辑'  , '资源绑定'] "/>
+	</s:dataProvider>
+	
+	<fx:Script>
+		<![CDATA[
+			import spark.events.IndexChangeEvent;
+			
+			import assets.Document_NameList;
+			
+			import framework.ApplicationFacade;
+			
+			import moduleEvent.InternalConstants;
+			/**
+			 * ToggleButton 切换回调函数
+			 * 
+			 * 此处切换状态,需要触发对应功能界面"结束事件"
+			 * -诸如,当前功能段的数据保存 
+			 * 			各界面面板的清空处理 
+						内存释放 
+						提示数据保存(或确认弹窗提示)
+						....
+			 * -------------------------------------
+			 * 需要触发下个功能段的"起始事件"
+			 * -诸如,界面初始化 ( 鼠标事件/自定义事件 )
+			  			XML数据加载
+			  			列表显示
+						数据保存及读取机制
+						....
+			 * */
+			protected function buttonbar1_changeHandler(event:IndexChangeEvent):void//
+			{
+				trace("<--CCToggleButtonBar--buttonbar1_changeHandler--selectedIndex: "+event.target.selectedIndex+"-->");		
+				if(event.target.selectedIndex == 0)
+				{
+					parentApplication.currentState = "spEditor";//技能编辑器模式
+					parentApplication._title = Document_NameList.APP_TITLE_EDIT;
+					parentApplication.closeBBFloatPanel();
+					parentApplication.openCCFloatPanel();
+				}else
+				{
+					parentApplication.currentState = "spBinder";//技能绑定模式
+					parentApplication._title = Document_NameList.APP_TITLE_BINDER;
+					parentApplication.openBBFloatPanel();
+					parentApplication.closeCCFloatPanel();
+					//
+//					ApplicationFacade.getInstance().sendNotification(InternalConstants.CREATE_SKILL_XML_ITEM);
+				}
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+</s:ButtonBar>

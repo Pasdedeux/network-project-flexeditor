@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+<!-- --------------------------------------------------------CATAGORY---------------------------------------------------------------- -->
+	<catagory type="P" name="角色">
+	<!-- --------------------------------------------------------TYPE-------------------- -->
+		<type type="Pz" name="坐骑">
+			<career>
+				<item type="00" name="通配"/>
+			</career>
+			<suit>
+				<item type="01" name="套装1"/>
+				<item type="02" name="套装2"/>
+				<item type="03" name="套装3"/>
+			</suit>
+			<action>
+				<item type="01" name="站立" totalFrame="3"/>
+				<item type="02" name="移动" totalFrame="6"/>
+			</action>
+		</type>
+	<!-- --------------------------------------------------------TYPE-------------------- -->	
+		<type type="Pc" name="宠物">
+			<career>
+				<item type="00" name="通配"/>
+			</career>
+			<suit>
+				<item type="01" name="套装1"/>
+				<item type="02" name="套装2"/>
+				<item type="03" name="套装3"/>
+			</suit>
+			<action>
+				<item type="01" name="站立" totalFrame="3"/>
+				<item type="02" name="移动" totalFrame="6"/>
+			</action>
+		</type>
+	<!-- --------------------------------------------------------TYPE-------------------- -->		
+		<type type="Pr" name="主角">
+			<career>
+				<item type="01" name="男战士"/>
+				<item type="02" name="女战士"/>
+				<item type="03" name="男枪手"/>
+				<item type="04" name="女枪手"/>
+				<item type="05" name="男法师"/>
+				<item type="06" name="女法师"/>
+			</career>
+			<suit>
+				<item type="01" name="套装1"/>
+				<item type="02" name="套装2"/>
+				<item type="03" name="套装3"/>
+			</suit>
+			<action>
+				<item type="01" name="站立" totalFrame="3"/>
+				<item type="02" name="骑马站立" totalFrame="3"/>
+				<item type="03" name="移动" totalFrame="6"/>
+				<item type="04" name="骑马移动" totalFrame="6"/>
+				<item type="05" name="攻击" totalFrame="6"/>
+				<item type="06" name="死亡" totalFrame="1"/>
+			</action>
+		</type>
+	<!-- --------------------------------------------------------TYPE-------------------- -->		
+		<type type="Ps" name="时装">
+			<career>
+				<item type="01" name="男战士"/>
+				<item type="02" name="女战士"/>
+				<item type="03" name="男枪手"/>
+				<item type="04" name="女枪手"/>
+				<item type="05" name="男法师"/>
+				<item type="06" name="女法师"/>
+			</career>
+			<suit>
+				<item type="01" name="套装1"/>
+				<item type="02" name="套装2"/>
+				<item type="03" name="套装3"/>
+			</suit>
+			<action>
+				<item type="01" name="站立" totalFrame="3"/>
+				<item type="02" name="骑马站立" totalFrame="3"/>
+				<item type="03" name="移动" totalFrame="6"/>
+				<item type="04" name="骑马移动" totalFrame="6"/>
+				<item type="05" name="攻击" totalFrame="6"/>
+				<item type="06" name="死亡" totalFrame="1"/>
+			</action>
+		</type>
+	</catagory>
+<!-- --------------------------------------------------------CATAGORY---------------------------------------------------------------- -->
+	<catagory type="E" name="特效">
+	<!-- --------------------------------------------------------TYPE-------------------- -->	
+		<type type="Ed" name="场景特效">
+			<career>
+				<item type="00" name="通配"/>
+			</career>
+			<suit>
+				<item type="01" name="套装1"/>
+				<item type="02" name="套装2"/>
+				<item type="03" name="套装3"/>
+			</suit>
+			<action>
+				<item type="01" name="站立" totalFrame="3"/>
+				<item type="02" name="移动" totalFrame="6"/>
+			</action>
+		</type>
+	<!-- --------------------------------------------------------TYPE-------------------- -->		
+		<type type="Ei" name="界面特效">
+			<career>
+				<item type="00" name="通配"/>
+			</career>
+			<suit>
+				<item type="01" name="套装1"/>
+				<item type="02" name="套装2"/>
+				<item type="03" name="套装3"/>
+			</suit>
+			<action>
+				<item type="01" name="站立" totalFrame="3"/>
+				<item type="02" name="移动" totalFrame="6"/>
+			</action>
+		</type>
+	<!-- --------------------------------------------------------TYPE-------------------- -->		
+		<type type="Es" name="技能特效">
+			<career>
+				<item type="00" name="通配"/>
+			</career>
+			<suit>
+				<item type="01" name="套装1"/>
+				<item type="02" name="套装2"/>
+				<item type="03" name="套装3"/>
+			</suit>
+			<action>
+				<item type="01" name="站立" totalFrame="3"/>
+				<item type="02" name="移动" totalFrame="6"/>
+			</action>
+		</type>
+	<!-- --------------------------------------------------------TYPE-------------------- -->		
+		<type type="Eo" name="其他特效">
+			<career>
+				<item type="00" name="通配"/>
+			</career>
+			<suit>
+				<item type="01" name="套装1"/>
+				<item type="02" name="套装2"/>
+				<item type="03" name="套装3"/>
+			</suit>
+			<action>
+				<item type="01" name="站立" totalFrame="3"/>
+				<item type="02" name="移动" totalFrame="6"/>
+			</action>
+		</type>
+	</catagory>
+
+</data>
