@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/mx" creationComplete="panel1_creationCompleteHandler(event)"
+		title="特效列表">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.XMLListCollection;
+			import mx.controls.Alert;
+			import mx.events.CloseEvent;
+			import mx.events.FlexEvent;
+			import mx.managers.PopUpManager;
+			
+			import spark.events.IndexChangeEvent;
+			
+			import assets.Document_NameList;
+			
+			import framework.ApplicationFacade;
+			
+			import moduleEvent.InternalConstants;
+			
+			[Bindable]
+			private var _skillList:XMLListCollection;
+			
+			protected function panel1_creationCompleteHandler(event:FlexEvent):void
+			{
+				//添加自定义事件传递修改XML后的值 
+				var xmlLoader:URLLoader = new URLLoader();
+				xmlLoader.addEventListener(Event.COMPLETE,xmlLoadOver);
+				xmlLoader.load(new URLRequest(File.applicationStorageDirectory.resolvePath(Document_NameList.LIST_SKILL_XML_NAME).nativePath));
+			}
+			
+			protected function list1_changeHandler(event:IndexChangeEvent):void
+			{
+				trace("<!--CCSkillListPanel--list1_changeHandler-->");
+				var xmlList:XMLList = _skillList.source;
+				ApplicationFacade.getInstance().sendNotification(InternalConstants.GENERATE_SWF_ON_MAINSTAGE_FROM_SKILLLIST, {xmlList:xmlList} );
+			}
+			
+			public function skillList(value:XML):void
+			{
+				_skillList = new XMLListCollection(value.effect.base.effectName);
+			}
+			
+			protected function xmlLoadOver(event:Event):void
+			{
+				var xloader:URLLoader = event.target as URLLoader;
+				xloader.removeEventListener(Event.COMPLETE,xmlLoadOver);
+				var tpXML:XML = new XML(event.target.data);
+				_skillList = new XMLListCollection( tpXML.child("effect").child("base").child("effectName" ));
+				xloader = null;
+			}
+			
+			protected function remove_clickHandler(event:MouseEvent):void
+			{
+				if( _list.selectedIndex != -1)
+				{
+					Alert.show("是否要删除 "+_list.selectedItem.@name,"请确认",Alert.YES | Alert.NO,null,clickAlertCallBack);
+				}
+				else
+				{
+					Alert.show("请选择要删除的技能","Warning",Alert.OK);
+				}
+			}
+			
+			private function clickAlertCallBack(e:CloseEvent):void
+			{
+				if(e.detail==1)
+				{
+					ApplicationFacade.getInstance().sendNotification(InternalConstants.DELETE_SKILL_XML_ITEM_XMLMEDIATOR,{effectID:_list.selectedItem.@id.toString()} );
+				}
+			}
+			
+			protected function addItem_clickHandler(event:MouseEvent):void
+			{
+				var addSpPanel:CCAddSpAssets = new CCAddSpAssets();
+				PopUpManager.addPopUp( addSpPanel , this , true );
+				addSpPanel.x = parentApplication.width - addSpPanel.width>>1;
+				addSpPanel.y = parentApplication.height - addSpPanel.height>>1;
+			}
+			
+			protected function saveChanged_clickHandler(event:MouseEvent):void
+			{
+				ApplicationFacade.getInstance().sendNotification( InternalConstants.CCSKILLPANEL_INFORM_SAVE_CHANGE_UIMEDIATOR);
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<s:VGroup left="10" right="10" top="10" bottom="10">
+		<s:List id="_list" dataProvider="{_skillList}" allowMultipleSelection="false" width="160" height="470" labelField="@name" change="list1_changeHandler(event)"/>
+		<s:HGroup >
+			<!--<s:Button label="添加" width="50" click="addItem_clickHandler(event)"/>-->
+			<s:Button label="保存修改" width="75" click="saveChanged_clickHandler(event)"/>
+			<s:Button label="移除" width="75" click="remove_clickHandler(event)"/>
+		</s:HGroup>
+	</s:VGroup>
+</s:Panel>

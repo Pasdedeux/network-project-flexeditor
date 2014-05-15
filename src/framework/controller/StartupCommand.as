@@ -23,7 +23,7 @@ package framework.controller
 			//addSubCommand(InitXMLCommand);
 			
 			var app:FlexEffectEditor = notification.getBody() as FlexEffectEditor;
-			facade.registerMediator(new UIStageMediator( UIStageMediator.NAME , new UIStageView()));
+			facade.registerMediator(new UIStageMediator( UIStageMediator.NAME , {uiView:app.mainStage.UIstage}));
 			facade.registerMediator(new XMLMediator(XMLMediator.NAME,{skillList:app.skillList , roleList:app.roleList}));
 			sendNotification(ApplicationConstants.INIT_XML);
 		}

@@ -94,8 +94,8 @@
 				<item type="03" name="套装3"/>
 			</suit>
 			<action>
-				<item type="01" name="站立" totalFrame="3"/>
-				<item type="02" name="移动" totalFrame="6"/>
+				<item type="01" name="攻击" totalFrame="3"/>
+				<item type="02" name="被击" totalFrame="6"/>
 			</action>
 		</type>
 	<!-- --------------------------------------------------------TYPE-------------------- -->		
@@ -109,8 +109,8 @@
 				<item type="03" name="套装3"/>
 			</suit>
 			<action>
-				<item type="01" name="站立" totalFrame="3"/>
-				<item type="02" name="移动" totalFrame="6"/>
+				<item type="01" name="攻击" totalFrame="3"/>
+				<item type="02" name="被击" totalFrame="6"/>
 			</action>
 		</type>
 	<!-- --------------------------------------------------------TYPE-------------------- -->		
@@ -124,8 +124,8 @@
 				<item type="03" name="套装3"/>
 			</suit>
 			<action>
-				<item type="01" name="站立" totalFrame="3"/>
-				<item type="02" name="移动" totalFrame="6"/>
+				<item type="01" name="攻击" totalFrame="3"/>
+				<item type="02" name="被击" totalFrame="6"/>
 			</action>
 		</type>
 	<!-- --------------------------------------------------------TYPE-------------------- -->		
@@ -139,8 +139,8 @@
 				<item type="03" name="套装3"/>
 			</suit>
 			<action>
-				<item type="01" name="站立" totalFrame="3"/>
-				<item type="02" name="移动" totalFrame="6"/>
+				<item type="01" name="攻击" totalFrame="3"/>
+				<item type="02" name="被击" totalFrame="6"/>
 			</action>
 		</type>
 	</catagory>

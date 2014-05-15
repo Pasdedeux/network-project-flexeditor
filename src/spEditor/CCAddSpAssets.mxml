@@ -34,12 +34,10 @@
 
 			private var _arr:Array=new Array();
 			private var _dropList:XML;
-			private var _trasparentXMLList_1:XMLList;
-			private var _trasparentXMLList_2:XMLList;
 			
 			private const _labelField:String = "@name";
 			private const _num_withoutDot:uint = 13;
-			private const DROP_LIST_BTN_INTERVAL:uint = 80;
+			private const DROP_LIST_BTN_INTERVAL:uint =100;
 			
 			protected function panel1_creationCompleteHandler(event:FlexEvent):void
 			{
@@ -62,10 +60,9 @@
 			{
 				backwardInit(1);
 				_arr[0] = pop_1.selectedItem.@type;
-				_trasparentXMLList_1 = _dropList.child("catagory").(@type==pop_1.selectedItem.@type);
-				_pop_2_XMLCollection = new XMLListCollection( _trasparentXMLList_1.children());
+				_pop_2_XMLCollection = new XMLListCollection( pop_1.selectedItem.children());
 				_arr.splice(1,_arr.length-1);
-				
+			
 				_showClassLinkage = _arr.join(".");
 			}
 			
@@ -73,9 +70,8 @@
 			{
 				backwardInit(2);
 				_arr[1] = pop_2.selectedItem.@type;
-				_trasparentXMLList_2 = _trasparentXMLList_1.child("type").(@type==pop_2.selectedItem.@type);
 				_arr.splice(2,_arr.length-2);
-				_pop_3_XMLCollection = new XMLListCollection(_trasparentXMLList_2.child("career").children());
+				_pop_3_XMLCollection = new XMLListCollection(pop_2.selectedItem.child("career").children());
 				
 				_showClassLinkage = _arr.join(".");
 			}
@@ -84,7 +80,7 @@
 			{
 				backwardInit(3);
 				_arr[2] = pop_3.selectedItem.@type;
-				_pop_4_XMLCollection  = new XMLListCollection(_trasparentXMLList_2.child("suit").children());
+				_pop_4_XMLCollection  = new XMLListCollection(pop_2.selectedItem.child("suit").children());
 				_arr.splice(3,_arr.length-3);
 				
 				_showClassLinkage = _arr.join(".");
@@ -94,7 +90,7 @@
 			{
 				backwardInit(4);
 				_arr[3] = pop_4.selectedItem.@type;
-				_pop_5_XMLCollection  = new XMLListCollection(_trasparentXMLList_2.child("action").children());
+				_pop_5_XMLCollection  = new XMLListCollection(pop_2.selectedItem.child("action").children());
 				_arr.splice(4,_arr.length-4);
 				
 				_showClassLinkage = _arr.join(".");
@@ -110,13 +106,45 @@
 			
 			protected function confirm_clickHandler(event:MouseEvent):void
 			{
-				if(_showClassLinkage != null && _showClassLinkage.length==_num_withoutDot)
+				if(effect_name.text == "")
 				{
-					ApplicationFacade.getInstance().sendNotification(InternalConstants.CREATE_SKILL_XML_ITEM , {prefix:_showClassLinkage , totalFrame:pop_5.selectedItem.@totalFrame });
+					Alert.show("请填写技能名称","Warning",Alert.OK,this);
+					return;
+				}
+				else if(effect_id.text == "")
+				{
+					Alert.show("请填写技能ID","Warning",Alert.OK,this);
+					return;
+				}
+				else if( pop_1.selectedIndex == -1 )
+				{
+					Alert.show("请选择'大类'","Warning",Alert.OK,this);
+					return;
+				}
+				else if( pop_2.selectedIndex == -1 )
+				{
+					Alert.show("请选择'类别2'","Warning",Alert.OK,this);
+					return;
+				}
+				else if( pop_3.visible && pop_3.selectedIndex == -1 )
+				{
+					Alert.show("请选择'类别3'","Warning",Alert.OK,this);
+					return;
+				}
+				else if( pop_4.visible && pop_4.selectedIndex == -1 )
+				{
+					Alert.show("请选择'类别4'","Warning",Alert.OK,this);
+					return;
+				}
+				else if( pop_5.visible && pop_5.selectedIndex == -1 )
+				{
+					Alert.show("请选择'类别5'","Warning",Alert.OK,this);
+					return;
+				}
+				else
+				{
+					ApplicationFacade.getInstance().sendNotification(InternalConstants.CREATE_SKILL_XML_ITEM_XMLMEDIATOR , {effectName:effect_name.text , effectID:effect_id.text , effectSound:effect_sound.text , prefix:_showClassLinkage , totalFrame:pop_5.selectedItem.@totalFrame });
 					cancel_clickHandler(null);
-				}else //if(pop_1.selectedIndex = -1 || pop_2.selectedIndex = -1 || pop_3.selectedIndex = -1 || pop_4.selectedIndex = -1 || pop_5.selectedIndex = -1 || )
-				{
-					Alert.show("ClassLinkage is null","Warning",Alert.OK,this);
 				}
 			}
 			
@@ -146,8 +174,6 @@
 				
 				 _arr = null;
 				_dropList = null;
-				_trasparentXMLList_1 = null;
-				_trasparentXMLList_2 = null;
 				_showClassLinkage = null;
 			}
 			
@@ -185,13 +211,13 @@
 	<s:Form>
 		<s:HGroup>
 			<s:FormItem label="技能名称">
-				<s:TextInput id="skill_name" width="80"/>
+				<s:TextInput id="effect_name" width="80"/>
 			</s:FormItem>
 			<s:FormItem label="技能ID">
-				<s:TextInput id="skill_id" width="80"/>
+				<s:TextInput id="effect_id" width="80"/>
 			</s:FormItem>
 			<s:FormItem label="音效">
-				<s:TextInput id="skill_sound" widthInChars="10"  editable="false" text="来自于'soundList'"/>
+				<s:TextInput id="effect_sound" widthInChars="10"  editable="false" text="来自于'soundList'"/>
 			</s:FormItem>
 			<s:FormItem>
 				<s:Button click="sound_clickHandler(event)" label="打开"/>

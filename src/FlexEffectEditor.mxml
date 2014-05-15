@@ -2,11 +2,11 @@
 <s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
 					   xmlns:s="library://ns.adobe.com/flex/spark" 
 					   xmlns:mx="library://ns.adobe.com/flex/mx" 
-					   xmlns:ns="spEditor_components.*" titleIcon="@Embed('assets/xigu_48x48.png')" minWidth="1150" minHeight="680"
-					   title="{_title}" 
-					   creationComplete="windowedapplication1_creationCompleteHandler(event)" 
+					   xmlns:spEditor="spEditor.*" titleIcon="@Embed('assets/xigu_48x48.png')" minWidth="1150" minHeight="680"
+					   title="{_title}" frameRate="60"
+					   creationComplete="windowedapplication1_creationCompleteHandler(event)"
 					   windowResize="windowedapplication1_windowResizeHandler(event)"
-					   currentState="spEditor" xmlns:ui="framework.view.ui.*" backgroundColor="0x999999" xmlns:ns1="spBinder_components.*" xmlns:local="*">
+					   currentState="spEditor" xmlns:ui="framework.view.ui.*" backgroundColor="0x999999" xmlns:spBinder="spBinder.*" xmlns:local="*" xmlns:components="components.*">
 	<s:states>
 		<s:State name="spEditor"/>
 		<!--<s:State name="skillLink"/>-->
@@ -15,7 +15,6 @@
 	
 	<fx:Style>
 		@namespace s "library://ns.adobe.com/flex/spark";
-		@namespace mx "library://ns.adobe.com/flex/mx";
 		.myStyle
 		{
 			chromeColor:Black;
@@ -33,10 +32,10 @@
 			
 			import framework.ApplicationFacade;
 			
-			import spBinder_components.BBRoleFormPanel;
-			import spBinder_components.BBRoleSkillListPanel;
+			import spBinder.BBRoleFormPanel;
+			import spBinder.BBRoleSkillListPanel;
 			
-			import spEditor_components.CCSkillAssetsListPanel;
+			import spEditor.CCSkillAssetsListPanel;
 			
 			private const common_offsetY:uint = 24;
 			private const bbroleistPanel_intY:uint = 500;
@@ -128,24 +127,31 @@
 				
 			}
 			
+			protected function clearStage_clickHandler(event:MouseEvent):void
+			{
+				
+				
+			}
+			
 		]]>
 	</fx:Script>
 	<!--<ns:CCMenuBar id="cmenu"/>-->
 	<s:HGroup>
-		<ns:CCToggleButtonBar id="head" includeInLayout="true"/>
+		<spEditor:CCToggleButtonBar id="head" includeInLayout="true"/>
 		<s:Button label="保存" styleName="myStyle" click="save_clickHandler(event)"/>
 		<s:Button label="导出" styleName="myStyle" click="output_clickHandler(event)"/>
+		<s:Button label="清除舞台" click="clearStage_clickHandler(event)"/>
 	</s:HGroup>
-	<local:MainStage y="{common_offsetY}" x="{skillList.width+10}" id="mainStage"/>
+	<components:MainStage y="{common_offsetY}" x="{skillList.width+10}" id="mainStage"/>
 	
 	<!-- ===========技能编辑模式============ -->
 	<s:HGroup y="{common_offsetY}" id="body_0" includeIn="spEditor">
-		<ns:CCSkillListPanel id="skillList"/>
+		<spEditor:CCSkillListPanel id="skillList"/>
 	</s:HGroup>
 	
 	<!-- ===========技能绑定模式============ -->
 	<s:HGroup y="{common_offsetY}" id="body_1" includeIn="spBinder">
-		<ns1:BBRoleListPanel id="roleList"/>
+		<spBinder:BBRoleListPanel id="roleList"/>
 	</s:HGroup>
 	
 	<fx:Declarations>

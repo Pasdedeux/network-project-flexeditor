@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx">
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<s:layout>
+		<s:FormLayout/>
+	</s:layout>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.managers.PopUpManager;
+			
+			
+			import framework.ApplicationFacade;
+			
+			import moduleEvent.InternalConstants;
+			
+			private var _arr:Array=new Array();
+			
+			private const DROP_LIST_BTN_INTERVAL:uint =100;
+			
+			protected function sound_clickHandler(event:MouseEvent):void
+			{
+				
+			}
+			
+			protected function confirm_clickHandler(event:MouseEvent):void
+			{
+				if(effect_name.text == "")
+				{
+					Alert.show("请填写"+f_name.label,"Warning",Alert.OK,this);
+					return;
+				}
+				else if(effect_id.text == "")
+				{
+					Alert.show("请填写"+f_id.label,"Warning",Alert.OK,this);
+					return;
+				}
+				else
+				{
+					ApplicationFacade.getInstance().sendNotification(InternalConstants.NAME_ID_DELIVERY_UISTAGEMEDIATOR , {effectName:effect_name.text , effectID:effect_id.text , effectSound:effect_sound.text});
+					cancel_clickHandler(null);
+				}
+			}
+			
+			protected function cancel_clickHandler(event:MouseEvent):void
+			{
+				clearAll();
+				PopUpManager.removePopUp(this);
+				delete this;
+			}
+			
+			private function clearAll():void
+			{
+				_arr = null;
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:Form>
+		<s:FormItem label="特效名称" id="f_name">
+			<s:TextInput id="effect_name" width="80"/>
+		</s:FormItem>
+		<s:FormItem label="特效ID" id="f_id">
+			<s:TextInput id="effect_id" width="80"/>
+		</s:FormItem>
+		<s:FormItem label="音效" id="f_sound">
+			<s:HGroup>
+				<s:TextInput id="effect_sound" widthInChars="10"  editable="false" text="来自于'soundList'"/>
+				<s:Button click="sound_clickHandler(event)" label="打开"/>
+			</s:HGroup>
+		</s:FormItem>
+		
+		<s:HGroup width="100%" horizontalAlign="center" verticalAlign="middle">
+			<s:Button label="确定" click="confirm_clickHandler(event)"/>
+			<s:Button label="取消" click="cancel_clickHandler(event)"/>
+		</s:HGroup>
+	</s:Form>
+</s:Panel>

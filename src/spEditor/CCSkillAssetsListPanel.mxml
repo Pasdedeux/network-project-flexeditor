@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 title="资源名" creationComplete="panel1_creationCompleteHandler(event)">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			import mx.events.ListEvent;
+			import mx.managers.PopUpManager;
+			
+			import framework.ApplicationFacade;
+			
+			import moduleEvent.InternalConstants;
+			[Bindable]
+			private var _treePath:File = File.desktopDirectory;
+			private var _directory:File;
+			protected function panel1_creationCompleteHandler(event:FlexEvent):void
+			{
+//				this.addEventListener(MouseEvent.MOUSE_DOWN , mouseDown , false , 100, true);
+				this.addEventListener(FocusEvent.FOCUS_IN , onActive);
+			}
+			
+			private function mouseDown(event:MouseEvent):void
+			{
+				this.addEventListener(MouseEvent.MOUSE_UP , mouseUp);
+				this.startDrag(false,new Rectangle(this.x,0,0,500));
+			}
+			
+			private function mouseUp(event:MouseEvent):void
+			{
+				this.removeEventListener(MouseEvent.MOUSE_UP , mouseUp);
+				this.stopDrag();
+			}
+			
+			protected function openDirectory_clickHandler(event:MouseEvent):void
+			{
+				_directory = File.desktopDirectory;
+				try
+				{
+					_directory.browseForDirectory("选择文件架");
+					_directory.addEventListener(Event.SELECT,selectOver);
+				}
+				catch(error:Error)
+				{
+					Alert.show("Failed: "+error.message,"Warning",1);
+				}
+			}
+			
+			private function selectOver(event:Event):void
+			{
+				_directory = event.target as File;
+				_directory.removeEventListener(Event.SELECT, selectOver);
+				
+				_treePath =new File(_directory.nativePath);
+				
+			}
+			
+			protected function _systemTree_changeHandler(event:ListEvent):void
+			{
+//				trace(_systemTree.selectedItem.name);
+//				trace(_systemTree.selectedIndex);
+//				trace(_systemTree.selectedPath);
+
+				if(String(_systemTree.selectedItem.name).indexOf(".swf") != -1)
+				{
+					ApplicationFacade.getInstance().sendNotification(InternalConstants.GENERATE_SWF_ON_MAINSTAGE_FROM_OUT , {targetPath:_systemTree.selectedPath});
+				}
+			}
+			
+			private function register_clickHandler(event:MouseEvent):void
+			{
+				var addSpPanel:CCAddSpAssets_v2 = new CCAddSpAssets_v2();
+				PopUpManager.addPopUp( addSpPanel , this , true );
+				addSpPanel.x = parentApplication.width - addSpPanel.width>>1;
+				addSpPanel.y = parentApplication.height - addSpPanel.height>>1;
+			}
+			
+			private function onActive(event:FocusEvent):void
+			{
+				trace("CCSkillAssetsPanel失去焦点");
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	
+	<s:VGroup left="10" right="10" top="10" bottom="10">
+		<s:List/>
+		<mx:FileSystemTree id="_systemTree" directory="{_treePath}" extensions="{['.swf']}" change="_systemTree_changeHandler(event)"/>
+		<s:Button label="更改资源库" click="openDirectory_clickHandler(event)"/>
+		<s:Button label="登记到列表" click="register_clickHandler(event)"/>
+		<s:Button label="移除技能绑定"/>
+	</s:VGroup>
+</s:Panel>

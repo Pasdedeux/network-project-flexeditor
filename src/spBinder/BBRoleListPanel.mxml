@@ -2,7 +2,7 @@
 <s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
-		 title="角色列表" xmlns:ns="spBinder_components.*">
+		 title="角色列表" xmlns:spBinder="spBinder.*">
 	
 	<fx:Script>
 		<![CDATA[
@@ -45,7 +45,7 @@
 	</fx:Declarations>
 	
 	<s:VGroup left="10" right="10" top="10" bottom="10">
-		<ns:BBToggleButtonBar/>
+		<spBinder:BBToggleButtonBar/>
 		<s:List dataProvider="{_skillList}" allowMultipleSelection="false" width="160" maxHeight="450"
 				creationComplete="list1_creationCompleteHandler(event)" 
 				change="list1_changeCompleteHandler(event)"/>
