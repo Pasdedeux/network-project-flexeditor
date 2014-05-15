@@ -2,26 +2,23 @@
 <s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
 					   xmlns:s="library://ns.adobe.com/flex/spark" 
 					   xmlns:mx="library://ns.adobe.com/flex/mx" 
-					   xmlns:spEditor="spEditor.*" titleIcon="@Embed('assets/xigu_48x48.png')" minWidth="1150" minHeight="680"
+					   xmlns:spEditor="spEditor.*"
+					   xmlns:spBinder="spBinder.*" 
+					   xmlns:local="*" xmlns:components="components.*"
+					   xmlns:ui="framework.view.ui.*" 
+					   titleIcon="@Embed('assets/xigu_48x48.png')" minWidth="1150" minHeight="680"
 					   title="{_title}" frameRate="60"
 					   creationComplete="windowedapplication1_creationCompleteHandler(event)"
 					   windowResize="windowedapplication1_windowResizeHandler(event)"
-					   currentState="spEditor" xmlns:ui="framework.view.ui.*" backgroundColor="0x999999" xmlns:spBinder="spBinder.*" xmlns:local="*" xmlns:components="components.*">
+					   currentState="spEditor" backgroundColor="0xcccccc" >
 	<s:states>
 		<s:State name="spEditor"/>
 		<!--<s:State name="skillLink"/>-->
 		<s:State name="spBinder"/>
 	</s:states>
 	
-	<fx:Style>
-		@namespace s "library://ns.adobe.com/flex/spark";
-		.myStyle
-		{
-			chromeColor:Black;
-			color:White;
-		}
-	</fx:Style>
-	
+	<fx:Style source="assets/style/globalStyle.css"/>
+
 	<fx:Script>
 		<![CDATA[
 			import mx.events.FlexEvent;

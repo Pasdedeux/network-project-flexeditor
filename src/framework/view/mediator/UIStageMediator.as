@@ -261,7 +261,7 @@ package framework.view.mediator
 			var ptX:int = UIStage.width>>1;
 			var ptY:int = UIStage.height>>1;
 			
-			crossShape.graphics.lineStyle(1);
+			crossShape.graphics.lineStyle(1,0xffffff);
 			
 			crossShape.graphics.moveTo(ptX , ptY);
 			crossShape.graphics.lineTo(ptX, ptY-20);
@@ -305,7 +305,7 @@ package framework.view.mediator
 		{
 			var rec:Rectangle = this._bmdVec[0].rect;
 			this._rectBoard.graphics.clear();
-			this._rectBoard.graphics.lineStyle(1);
+			this._rectBoard.graphics.lineStyle(1,0xffffff);
 			this._rectBoard.graphics.drawRect(rec.x ,rec.y,rec.width,rec.height);
 			rec = null;
 		}

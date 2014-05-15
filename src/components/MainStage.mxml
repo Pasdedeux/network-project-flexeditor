@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
 				   xmlns:s="library://ns.adobe.com/flex/spark" 
-				   xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:ui="framework.view.ui.*" creationComplete="bordercontainer1_creationCompleteHandler(event)">
+				   xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:ui="framework.view.ui.*" 
+				   backgroundColor="0x000000"
+				   creationComplete="bordercontainer1_creationCompleteHandler(event)">
 	<s:layout>
 		<s:BasicLayout/>
 	</s:layout>
@@ -11,7 +13,7 @@
 			
 			protected function bordercontainer1_creationCompleteHandler(event:FlexEvent):void
 			{
-				trace("<--components.MainStage--creationOver>");
+				trace("<--components.MainStage--creationOver>"); 
 			}
 			
 		]]>

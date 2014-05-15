@@ -1,0 +1,14 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+s|Panel
+{
+	backgroundColor:Black;
+	backgroundAlpha:0.5
+}
+.myStyle
+{
+	chromeColor:Black;
+	color:White;
+}

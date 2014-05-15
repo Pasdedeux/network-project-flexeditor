@@ -19,6 +19,9 @@
     <application path="FlexEffectEditor.mxml">
       <airExcludes/>
     </application>
+    <application path="">
+      <airExcludes/>
+    </application>
   </applications>
   <modules/>
   <workers/>
