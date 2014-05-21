@@ -40,7 +40,7 @@
 				_directory = File.desktopDirectory;
 				try
 				{
-					_directory.browseForDirectory("选择文件架");
+					_directory.browseForDirectory("选择文件夹");
 					_directory.addEventListener(Event.SELECT,selectOver);
 				}
 				catch(error:Error)

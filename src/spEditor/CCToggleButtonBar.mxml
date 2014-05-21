@@ -52,9 +52,7 @@
 					parentApplication._title = Document_NameList.APP_TITLE_BINDER;
 					parentApplication.openBBFloatPanel();
 					parentApplication.closeCCFloatPanel();
-					//
-//					ApplicationFacade.getInstance().sendNotification(InternalConstants.CREATE_SKILL_XML_ITEM);
-				}
+				} 
 			}
 			
 		]]>

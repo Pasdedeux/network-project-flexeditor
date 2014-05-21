@@ -10,8 +10,7 @@
         </excludedEntries>
       </libraryPathEntry>
       <libraryPathEntry kind="1" linkType="1" path="libs"/>
-      <libraryPathEntry kind="3" linkType="1" path="E:/xiguGame/RedMoon2/client/Template/asset/asset/PureMVC_AS3_2_0_4.swc" useDefaultLinkType="false"/>
-      <libraryPathEntry kind="3" linkType="1" path="E:/资料库/MyBase/bin/MyBase.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="F:/资料库/MyBase/bin/PureMVC_AS3_2_0_4.swc" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>
@@ -29,7 +28,7 @@
   <flashCatalyst validateFlashCatalystCompatibility="false"/>
   <buildTargets>
     <buildTarget buildTargetName="default" platformId="default">
-      <airSettings airCertificatePath="E:/测试区/Air发布区/12.p12" airTimestamp="false" anePathSet="true" version="1">
+      <airSettings airCertificatePath="E:/濞村鐦崠锟紸ir閸欐垵绔烽崠锟�2.p12" airTimestamp="false" anePathSet="true" version="1">
         <airExcludes/>
         <anePaths/>
         <newLaunchParams/>

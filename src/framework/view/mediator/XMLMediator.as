@@ -7,7 +7,6 @@ package framework.view.mediator
 	import flash.geom.Point;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
-	import flash.utils.Dictionary;
 	
 	import assets.Document_NameList;
 	
